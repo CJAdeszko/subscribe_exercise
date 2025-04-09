@@ -7,7 +7,6 @@ module Subscribe
   class ReceiptGenerator
     def initialize
       @receipt = Receipt.new
-      @add_item = true
     end
 
     def run
