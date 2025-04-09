@@ -9,13 +9,6 @@ cd ~/your_desired_directory
 git clone git@github.com:CJAdeszko/subscribe_exercise.git
 ```
 
-### Install [rbenv](https://github.com/rbenv/rbenv) if not already present on machine 
-```
-brew install rbenv
-rbenv init
-rbenv install 3.3.8
-```
-
 ### Run the tool using the executable
 ```
 ./bin/receipt_generator run
@@ -52,6 +45,13 @@ Total: 42.32
 You must hit `Enter` twice to generate the receipt (once to submit the final item and once to generate), though this is unprompted in the CLI
 
 If you wish to generate another receipt, you will need to re-run the tool using the `./bin/receipt_generator run` command again
+
+You may need to install [rbenv](https://github.com/rbenv/rbenv) if not already present on machine to ensure the correct Ruby version is present
+```
+brew install rbenv
+rbenv init
+rbenv install 3.3.8
+```
 
 # Assumptions
 
