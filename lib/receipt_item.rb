@@ -21,13 +21,13 @@ class ReceiptItem
   def sales_tax
     return 0 unless @taxable
 
-    (((@price * 0.10) / 0.05).round * 0.05).round(2)
+    (((@price * @quantity * 0.10) / 0.05).ceil * 0.05)
   end
 
   def import_tax
     return 0 unless @import_tax
 
-    (((@price * 0.05) / 0.05).round * 0.05).round(2)
+   (@price.ceil * 0.05 * @quantity)
   end
 
   def taxable?

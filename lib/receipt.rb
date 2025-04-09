@@ -15,9 +15,9 @@ class Receipt
     end
   end
 
-  def sales_tax
+  def tax
     @items.reduce(0) do |sum, item|
-      sum + item.sales_tax
+      sum + item.sales_tax + item.import_tax
     end
   end
 end
