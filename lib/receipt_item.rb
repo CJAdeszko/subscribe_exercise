@@ -1,5 +1,5 @@
 class ReceiptItem
-  attr_accessor :name, :price, :quantity, :taxable, :import_duty, :total
+  attr_accessor :name, :price, :quantity, :taxable, :import_duty
 
   TAX_EXEMPT_ITEMS = %W[book chocolate headache\ pills].freeze
 
