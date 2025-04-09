@@ -13,7 +13,7 @@ module Subscribe
 
     def run
       puts "Welcome to the SUBSCRIBE receipt generator..."
-      puts "Please enter the items you would like to generate a receipt for:"
+      puts "Please enter the items you would like to generate a receipt for and press Enter:"
 
       loop do
         input = $stdin.gets.chomp
