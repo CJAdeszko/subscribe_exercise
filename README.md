@@ -9,6 +9,13 @@ cd ~/your_desired_directory
 git clone git@github.com:CJAdeszko/subscribe_exercise.git
 ```
 
+### Install [rbenv](https://github.com/rbenv/rbenv) if not already present on machine 
+```
+brew install rbenv
+rbenv init
+rbenv install 3.3.8
+```
+
 ### Run the tool using the executable
 ```
 ./bin/receipt_generator run
