@@ -31,6 +31,7 @@ module Subscribe
       item = ReceiptItem.new(
         quantity: item_data[:quantity].to_i,
         name: item_data[:name].strip,
+        import_tax: !!item_data[:imported],
         price: item_data[:price].to_f
       )
 
@@ -38,9 +39,9 @@ module Subscribe
     end
 
     def validate_input(input)
-      match_data = input.match(/^(?<quantity>\d+)\s(?<name>.+?)\sat\s(?<price>\d+\.\d{2})$/)
-      unless match_data && match_data.names.all? { |key| match_data[key] }
-        raise ArgumentError, "Invalid input format. Expected: 'QUANTITY NAME at PRICE' (e.g., '2 book at 12.49')"
+      match_data = input.match(/^(?<quantity>\d+)\s(?<imported>imported\s)?(?<name>.+?)\s+at\s+(?<price>\d+\.\d{2})$/i)
+      unless match_data && %i[quantity name price].all? { |k| match_data[k] }
+        raise ArgumentError, "Invalid format. Expected: 'QUANTITY [imported] NAME at PRICE'"
       end
 
       match_data
