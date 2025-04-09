@@ -11,10 +11,9 @@ module Subscribe
 
     def run
       puts "Welcome to the SUBSCRIBE receipt generator..."
-      puts "Please enter the ledger item you would like to generate a receipt for:"
+      puts "Please enter the items you would like to generate a receipt for:"
 
       loop do
-        print "> "
         input = $stdin.gets.chomp
         break if input.empty?
 
@@ -26,19 +25,22 @@ module Subscribe
           puts "Error: #{e.message}"
           puts "Please correct the input and try again."
         end
-
-        puts "Item added to receipt. Enter another item or press Enter to finish."
       end
 
       print_receipt
     end
 
     def print_receipt
+      puts "=" * 100
       @receipt.items.each do |item|
-        puts "#{item.quantity} #{item.name}: #{item.total}"
+        item_sting = "#{item.quantity}"
+        item_sting += " imported" unless item.import_tax.zero?
+        item_sting += " #{item.name}"
+        item_sting += ": #{item.total}"
+        puts item_sting
       end
-      puts "Sales Taxes: #{@receipt.sales_tax}"
-      puts "Total: #{@receipt.total}"
+      puts "Sales Taxes: #{format("%.2f", @receipt.tax)}"
+      puts "Total: #{format("%.2f", @receipt.total)}"
     end
 
     def handle_receipt_item(item_data)
