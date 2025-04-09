@@ -13,21 +13,26 @@ class ReceiptItem
 
   def total
     @total = @price * @quantity
-    @total += calculate_sales_tax if @taxable
-    @total += calculate_import_tax if @import_tax
-    @total
+    @total += sales_tax
+    @total += import_tax
+    @total.round(2)
   end
 
-  def calculate_sales_tax
-    @price * 0.10
+  def sales_tax
+    return 0 unless @taxable
+
+    (((@price * 0.10) / 0.05).round * 0.05).round(2)
   end
 
-  def calculate_import_tax
-    @price * 0.05
+  def import_tax
+    return 0 unless @import_tax
+
+    (((@price * 0.05) / 0.05).round * 0.05).round(2)
   end
 
   def taxable?
     return false if TAX_EXEMPT_ITEMS.any? { |exempt_item| @name.downcase.include?(exempt_item.downcase) }
+
     true
   end
 end
