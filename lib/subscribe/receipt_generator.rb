@@ -47,7 +47,7 @@ module Subscribe
       item = ReceiptItem.new(
         quantity: item_data[:quantity].to_i,
         name: item_data[:name].strip,
-        import_tax: !!item_data[:imported],
+        import_duty: !!item_data[:imported],
         price: item_data[:price].to_f
       )
 

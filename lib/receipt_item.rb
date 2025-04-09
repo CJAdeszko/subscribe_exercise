@@ -1,14 +1,14 @@
 class ReceiptItem
-  attr_accessor :name, :price, :quantity, :taxable, :import_tax, :total
+  attr_accessor :name, :price, :quantity, :taxable, :import_duty, :total
 
   TAX_EXEMPT_ITEMS = %W[book chocolate headache\ pills].freeze
 
-  def initialize(name:, price:, quantity:, import_tax: false)
+  def initialize(name:, price:, quantity:, import_duty: false)
     @name = name
     @price = price
     @quantity = quantity
     @taxable = taxable?
-    @import_tax = import_tax
+    @import_duty = import_duty
   end
 
   def total
@@ -25,7 +25,7 @@ class ReceiptItem
   end
 
   def import_tax
-    return 0 unless @import_tax
+    return 0 unless @import_duty
 
    (@price.ceil * 0.05 * @quantity)
   end
