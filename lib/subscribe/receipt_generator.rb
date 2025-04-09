@@ -5,6 +5,11 @@ require_relative "../receipt_item.rb"
 
 module Subscribe
   class ReceiptGenerator
+    def initialize
+      @receipt = Receipt.new
+      @add_item = true
+    end
+
     def run
       puts "Welcome to the SUBSCRIBE receipt generator..."
       puts "Please enter the ledger item you would like to generate a receipt for:"
@@ -17,17 +22,27 @@ module Subscribe
         begin
           receipt_item_data = validate_input(input)
 
-          receipt = Receipt.new
-
-          handle_receipt_item(receipt_item_data, receipt)
+          item = handle_receipt_item(receipt_item_data)
         rescue ArgumentError => e
           puts "Error: #{e.message}"
           puts "Please correct the input and try again."
         end
+
+        puts "Item added to receipt. Enter another item or press Enter to finish."
       end
+
+      print_receipt
     end
 
-    def handle_receipt_item(item_data, receipt)
+    def print_receipt
+      @receipt.items.each do |item|
+        puts "#{item.quantity} #{item.name}: #{item.total}"
+      end
+      puts "Sales Taxes: #{@receipt.sales_tax}"
+      puts "Total: #{@receipt.total}"
+    end
+
+    def handle_receipt_item(item_data)
       item = ReceiptItem.new(
         quantity: item_data[:quantity].to_i,
         name: item_data[:name].strip,
@@ -35,7 +50,7 @@ module Subscribe
         price: item_data[:price].to_f
       )
 
-      receipt.add_item(item)
+      @receipt.add_item(item)
     end
 
     def validate_input(input)
