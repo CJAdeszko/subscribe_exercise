@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require_relative '../lib/subscribe/receipt_generator'
+
+Subscribe::ReceiptGenerator.new.run
