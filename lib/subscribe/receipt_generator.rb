@@ -19,17 +19,21 @@ module Subscribe
         input = $stdin.gets.chomp
         break if input.empty?
 
-        begin
-          receipt_item_data = validate_input(input)
-
-          item = handle_receipt_item(receipt_item_data)
-        rescue ArgumentError => e
-          puts "Error: #{e.message}"
-          puts "Please correct the input and try again."
-        end
+        handle_input(input)
       end
 
       print_receipt
+    end
+
+    def handle_input(input)
+      begin
+        receipt_item_data = validate_input(input)
+
+        handle_receipt_item(receipt_item_data)
+      rescue ArgumentError => e
+        puts "Error: #{e.message}"
+        puts "Please correct the input and try again."
+      end
     end
 
     def print_receipt
