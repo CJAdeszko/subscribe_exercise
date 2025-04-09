@@ -5,6 +5,8 @@ require_relative "../receipt_item.rb"
 
 module Subscribe
   class ReceiptGenerator
+    attr_accessor :receipt
+
     def initialize
       @receipt = Receipt.new
     end
@@ -32,15 +34,15 @@ module Subscribe
 
     def print_receipt
       puts "=" * 100
-      @receipt.items.each do |item|
+      receipt.items.each do |item|
         item_sting = "#{item.quantity}"
         item_sting += " imported" unless item.import_tax.zero?
         item_sting += " #{item.name}"
         item_sting += ": #{item.total}"
         puts item_sting
       end
-      puts "Sales Taxes: #{format("%.2f", @receipt.tax)}"
-      puts "Total: #{format("%.2f", @receipt.total)}"
+      puts "Sales Taxes: #{format("%.2f", receipt.tax)}"
+      puts "Total: #{format("%.2f", receipt.total)}"
     end
 
     def handle_receipt_item(item_data)
@@ -51,7 +53,7 @@ module Subscribe
         price: item_data[:price].to_f
       )
 
-      @receipt.add_item(item)
+      receipt.add_item(item)
     end
 
     def validate_input(input)
