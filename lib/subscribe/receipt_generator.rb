@@ -14,23 +14,36 @@ module Subscribe
         input = $stdin.gets.chomp
         break if input.empty?
 
-        receipt = Receipt.new
+        begin
+          receipt_item_data = validate_input(input)
 
-        handle_receipt_item(input, receipt)
+          receipt = Receipt.new
+
+          handle_receipt_item(receipt_item_data, receipt)
+        rescue ArgumentError => e
+          puts "Error: #{e.message}"
+          puts "Please correct the input and try again."
+        end
       end
     end
 
-    def handle_receipt_item(input, receipt)
-      match_data = input.match(/^(?<quantity>\d+)\s(?<name>.+?)\sat\s(?<price>\d+\.\d{2})$/)
-      if match_data
-        item = ReceiptItem.new(
-          quantity: match_data[:quantity].to_i,
-          name: match_data[:name].strip,
-          price: match_data[:price].to_f
-        )
+    def handle_receipt_item(item_data, receipt)
+      item = ReceiptItem.new(
+        quantity: item_data[:quantity].to_i,
+        name: item_data[:name].strip,
+        price: item_data[:price].to_f
+      )
 
-        receipt.add_item(item)
+      receipt.add_item(item)
+    end
+
+    def validate_input(input)
+      match_data = input.match(/^(?<quantity>\d+)\s(?<name>.+?)\sat\s(?<price>\d+\.\d{2})$/)
+      unless match_data && match_data.names.all? { |key| match_data[key] }
+        raise ArgumentError, "Invalid input format. Expected: 'QUANTITY NAME at PRICE' (e.g., '2 book at 12.49')"
       end
+
+      match_data
     end
   end
 end
