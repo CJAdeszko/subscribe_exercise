@@ -40,6 +40,14 @@ Sales Taxes: 1.50
 Total: 42.32
 ```
 
+### Running tests
+
+You can run the entire RSpec spec from the root directory with
+
+```
+rspec spec/
+```
+
 ### Notes on usage: 
 
 You must hit `Enter` twice to generate the receipt (once to submit the final item and once to generate), though this is unprompted in the CLI
