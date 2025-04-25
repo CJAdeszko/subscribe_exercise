@@ -39,11 +39,11 @@ module Subscribe
     def print_receipt
       puts "=" * 100
       receipt.items.each do |item|
-        item_sting = "#{item.quantity}"
-        item_sting += " imported" unless item.import_tax.zero?
-        item_sting += " #{item.name}"
-        item_sting += ": #{item.total}"
-        puts item_sting
+        item_string = "#{item.quantity}"
+        item_string += " imported" unless item.import_tax.zero?
+        item_string += " #{item.name}"
+        item_string += ": #{item.total}"
+        puts item_string
       end
       puts "Sales Taxes: #{format("%.2f", receipt.tax)}"
       puts "Total: #{format("%.2f", receipt.total)}"
